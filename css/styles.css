@@ -211,14 +211,6 @@ nav h1 a {
     width: 100%;
     position: absolute;
 }
-/*
-.inside #map-container {
-  background: blue none repeat scroll 0 0;
-  height: 87%;
-  position: fixed;
-  right: 0;
-  width: 50%;
-} */
 
 .inside #map {
   background-color: #ccc;
@@ -311,40 +303,30 @@ nav h1 a {
   margin:0.5em;
 }
 @media screen and (max-width:360px) {
-
-  .filter-options select {
+.filter-options select {
     width: 150px !important;
   }
 }
 @media screen and (max-width:432px) {
-
   nav h1 a {
-   font-size: 11pt;
-   letter-spacing: 0.5em;
+    font-size: 11pt;
+    letter-spacing: 0.5em;
   }
-  
   .filter-options select {
     width: 165px;
-}
+  }
 #restaurants-list li {
-  
- min-width: calc(100% -30px); 
-  
+    min-width: calc(100% -30px); 
+  }
 }
-
-}
-
 @media screen and (min-width:650px) {
-    
   #restaurants-list li {
     padding: 0;
     width: calc((100% - 65px)/2);
   }
 }
-  @media screen and (min-width:960px) {
-    
-    #restaurants-list li {
+@media screen and (min-width:960px) {
+  #restaurants-list li {
       width: calc((100% - 100px)/3);
     }
-  
-  }
+}
