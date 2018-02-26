@@ -57,7 +57,10 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
+  image.setAttribute('alt',restaurant.name);
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.srcset = DBHelper.imageUrlsForSrcSet(restaurant.photograph);
+  image.sizes ='(max-width: 430px) 25vw, (min-width: 650px) calc((100vw - 65px)/2), (min-width: 960px) width: calc((100vw - 100px)/3)';
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -80,10 +83,13 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 
     const day = document.createElement('td');
     day.innerHTML = key;
+    
+    day.setAttribute("tabindex",0);
     row.appendChild(day);
 
     const time = document.createElement('td');
     time.innerHTML = operatingHours[key];
+    time.setAttribute("tabindex",0);
     row.appendChild(time);
 
     hours.appendChild(row);
@@ -161,3 +167,11 @@ getParameterByName = (name, url) => {
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+/**
+ * Add title attribute to the map iframe.
+ */
+window.addEventListener('load', function(){
+  document.querySelector('iframe').setAttribute('title','Google Maps');
+  
+});

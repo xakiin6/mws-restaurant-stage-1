@@ -140,7 +140,10 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
+  image.alt =restaurant.name;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.srcset = DBHelper.imageUrlsForSrcSet(restaurant.photograph);
+  image.sizes ='(max-width: 430px) 25vw, (min-width: 650px) calc((100vw - 65px)/2), (min-width: 960px) width: calc((100vw - 100px)/3)';
   li.append(image);
 
   const name = document.createElement('h1');
@@ -176,3 +179,30 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 }
+
+/**
+ * Add title attribute to the map iframe.
+ */
+window.addEventListener('load', function(){
+  document.querySelector('iframe').setAttribute('title','Google Maps');
+  
+});
+
+
+/**
+ * Register ServerWoker 
+ */
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // Registration was successful
+      
+    }, function(err) {
+      // registration failed :(
+      
+    });
+  });
+}
+
+

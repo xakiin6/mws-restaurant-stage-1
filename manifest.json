@@ -1,0 +1,9 @@
+{
+    "name": "Restaurant Reviews",
+    "short_name": "R Reviews",
+    "scope": "/",
+    "icons": [],
+    "display": "standalone",
+    "start_url": "/",
+    "theme-color": "#252831"
+  }
