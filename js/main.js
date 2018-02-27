@@ -140,7 +140,7 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.alt =restaurant.name;
+  image.alt = `${restaurant.name} restaurant's image`;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   image.srcset = DBHelper.imageUrlsForSrcSet(restaurant.photograph);
   image.sizes ='(max-width: 430px) 25vw, (min-width: 650px) calc((100vw - 65px)/2), (min-width: 960px) width: calc((100vw - 100px)/3)';
@@ -188,21 +188,5 @@ window.addEventListener('load', function(){
   
 });
 
-
-/**
- * Register ServerWoker 
- */
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js').then(function(registration) {
-      // Registration was successful
-      
-    }, function(err) {
-      // registration failed :(
-      
-    });
-  });
-}
 
 
