@@ -9,11 +9,16 @@ window.initMap = () => {
     if (error) { // Got an error!
       console.error(error);
     } else {
-      self.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
-        center: restaurant.latlng,
-        scrollwheel: false
-      });
+      self.map = L.map('map').setView([restaurant.latlng.lat, restaurant.latlng.lng], 16);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(self.map);
+      // self.map = new google.maps.Map(document.getElementById('map'), {
+      //   zoom: 16,
+      //   center: restaurant.latlng,
+      //   scrollwheel: false
+      // });
       fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
@@ -171,7 +176,7 @@ getParameterByName = (name, url) => {
 /**
  * Add title attribute to the map iframe.
  */
-window.addEventListener('load', function(){
-  document.querySelector('iframe').setAttribute('title','Google Maps');
+document.addEventListener('DOMContentLoaded', function(){
+  window.initMap();
   
 });

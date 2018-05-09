@@ -1,15 +1,15 @@
  // Static cache files
- var CACHE_NAME = 'restaurant-cache-v11';
+ var CACHE_NAME = 'restaurant-cache-v12';
  var urlsToCache = [
      '/',
+     '/restaurant.html',
      '/css/styles.css',
      '/css/restaurant.css',
      '/js/main.js',
      '/js/dbhelper.js',
      '/js/restaurant_info.js',
-     '/data/restaurants.json',
-     'https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2',
-     'https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2'
+     '/data/restaurants.json'
+     
      
  ];
 
@@ -21,7 +21,7 @@ self.addEventListener('install', function(event) {
       .then(function(cache) {
         // Add Urls to cache
         console.log('Added Urls to cache')
-        return cache.addAll(urlsToCache);
+        return cache.addAll(urlsToCache).catch(function(error){console.log(error);});
       })
   );
 });
@@ -41,7 +41,7 @@ self.addEventListener('install', function(event) {
           return fetch(fetchRequest).then(
             function(response) {
               // Check if we received a valid response
-              if(!response || response.status !== 200) {
+              if(!response || response.status !== 200 || response.type !== 'basic') {
                 return response;
               }
   
@@ -50,12 +50,13 @@ self.addEventListener('install', function(event) {
   
               caches.open(CACHE_NAME)
                 .then(function(cache) {
+
                   cache.put(event.request, responseToCache);
-                });
+                }).catch(function(error){ console.log(error);});
   
               return response;
             }
-          );
+          ).catch(function(error){console.log(error);});
         })
       );
   }); 

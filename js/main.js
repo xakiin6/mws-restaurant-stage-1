@@ -10,6 +10,7 @@ var markers = []
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
+  window.initMap();
 });
 
 /**
@@ -71,15 +72,12 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  * Initialize Google map, called from HTML.
  */
 window.initMap = () => {
-  let loc = {
-    lat: 40.722216,
-    lng: -73.987501
-  };
-  self.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: loc,
-    scrollwheel: false
-  });
+  
+  self.map = L.map('map').setView([40.722216, -73.987501], 12);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(self.map);
   updateRestaurants();
 }
 
@@ -116,7 +114,7 @@ resetRestaurants = (restaurants) => {
   ul.innerHTML = '';
 
   // Remove all map markers
-  self.markers.forEach(m => m.setMap(null));
+  self.markers.forEach(m => self.map.removeLayer(m));
   self.markers = [];
   self.restaurants = restaurants;
 }
@@ -170,23 +168,19 @@ createRestaurantHTML = (restaurant) => {
  * Add markers for current restaurants to the map.
  */
 addMarkersToMap = (restaurants = self.restaurants) => {
+  
+
   restaurants.forEach(restaurant => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
-    google.maps.event.addListener(marker, 'click', () => {
-      window.location.href = marker.url
+    marker.on('click', function() {
+      window.location = DBHelper.urlForRestaurant(restaurant)
     });
     self.markers.push(marker);
   });
 }
 
-/**
- * Add title attribute to the map iframe.
- */
-window.addEventListener('load', function(){
-  document.querySelector('iframe').setAttribute('title','Google Maps');
-  
-});
+
 
 
 
