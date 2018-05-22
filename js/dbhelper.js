@@ -155,7 +155,7 @@ class DBHelper {
 
   static imageUrlsForSrcSet(photograph) {
     let imageParts = photograph.split('.');
-    return (`https://xakiin6.github.io/mws-restaurant-stage-1/img/${photograph} 400w, /img/${imageParts[0]+'-650.'+imageParts[1]} 600w, /img/${imageParts[0]+'-800.'+imageParts[1]} 900w`);
+    return (`https://xakiin6.github.io/mws-restaurant-stage-1/img/${photograph} 400w, https://xakiin6.github.io/mws-restaurant-stage-1/img/${imageParts[0]+'-650.'+imageParts[1]} 600w, https://xakiin6.github.io/mws-restaurant-stage-1//img/${imageParts[0]+'-800.'+imageParts[1]} 900w`);
   }
 
   /**
